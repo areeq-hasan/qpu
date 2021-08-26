@@ -30,10 +30,10 @@ jobs:
           pipenv install --deploy --dev
       - name: Format with black
         run: |
-          black qcpu --check
+          pipenv run black qcpu --check
       - name: Lint with pylint
         run: |
-          pylint qcpu
+          pipenv run pylint qcpu
       - name: Test with pytest
         run: |
-          pytest
+          pipenv run pytest
