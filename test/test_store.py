@@ -1,3 +1,5 @@
+"""Test Store"""
+
 import numpy as np
 from qcpu import QuantumComputer
 
@@ -6,9 +8,9 @@ def test_store():
     """
     Test storing and retrieving values from the memory register.
     """
-    computer = QuantumComputer(1, 15, 2)
-    computer.program("0011111")
+    computer = QuantumComputer(4, 2)
+    computer.program("1111111")
     computer.run()
     state = computer.get_state()
     assert not np.any(state[:3])
-    assert state[3] == 7
+    assert state[3] == 15

@@ -16,19 +16,17 @@ class QuantumComputer:
     QuantumComputer Class
     """
 
-    def __init__(self, n_op: int, n_int: int, n_addr: int):
-        self.addr_reg_size = max(n_addr.bit_length(), 1)
-        self.data_reg_size = max(n_int.bit_length(), 1)
+    def __init__(self, data_size: int, addr_size: int):
+        self.data_size = data_size
+        self.addr_size = addr_size
 
-        self.optype = QuantumRegister(max(n_op.bit_length(), 1), name="optype")
-        self.opdata = QuantumRegister(max(n_int.bit_length(), 1), name="opdata")
-        self.opaddr = QuantumRegister(self.addr_reg_size, name="opaddr")
-        self.address = QuantumRegister(self.addr_reg_size, name="address")
-        self.data = QuantumRegister(self.data_reg_size, name="data")
+        self.optype = QuantumRegister(1, name="optype")
+        self.opdata = QuantumRegister(self.data_size, name="opdata")
+        self.opaddr = QuantumRegister(self.addr_size, name="opaddr")
+        self.address = QuantumRegister(self.addr_size, name="address")
+        self.data = QuantumRegister(self.data_size, name="data")
 
-        self.meas = ClassicalRegister(
-            self.addr_reg_size + self.data_reg_size, name="meas"
-        )
+        self.meas = ClassicalRegister(self.addr_size + self.data_size, name="meas")
 
         self.circuit = QuantumCircuit(
             self.address, self.data, self.opaddr, self.opdata, self.optype, self.meas
@@ -55,7 +53,6 @@ class QuantumComputer:
         self.circuit.h(self.address)
         self.circuit.barrier()
 
-        self.circuit.x(self.optype)
         self.circuit.x(self.opaddr)
 
         for bit in range(0, self.address.size, 1):
@@ -76,7 +73,6 @@ class QuantumComputer:
                 self.address[self.address.size - 1 - bit],
             )
 
-        self.circuit.x(self.opaddr)
         self.circuit.x(self.optype)
 
         self.circuit.barrier()
@@ -91,10 +87,9 @@ class QuantumComputer:
         """
         Measure the state of the memory register and return the result.
         """
-        self.circuit.measure(self.address[:], self.meas[: self.addr_reg_size])
+        self.circuit.measure(self.address[:], self.meas[: self.addr_size])
         self.circuit.measure(
-            self.data[:],
-            self.meas[self.addr_reg_size : self.addr_reg_size + self.data_reg_size],
+            self.data[:], self.meas[self.addr_size : self.addr_size + self.data_size]
         )
 
         self.circuit = self.circuit.reverse_bits()
