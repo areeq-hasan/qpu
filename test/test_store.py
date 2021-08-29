@@ -1,7 +1,7 @@
 """Test Store"""
 
 import numpy as np
-from qcpu import QuantumComputer
+from qpu import QuantumComputer
 
 
 def test_store():
