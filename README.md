@@ -1,6 +1,6 @@
 # qpu
 
-**qpu** is a software development kit for designing, building, and testing parameterized quantum circuits that accept *quantum programs* (sets of *quantum instructions*) as input and return the result of executing said quantum instructions as output.
+**qpu** is a simulated firmware for quantum processors packaged into software development kit for designing, building, and testing parameterized quantum circuits that accept *quantum programs* (sets of *quantum instructions*) as input and return the result of executing said quantum instructions as output.
 
 ## Usage
 This code constructs a quantum computer that represents memory data with 4 qubits (max representable integer is 15 in decimal) and memory addresses with 2 qubits (4 total addresses). The computer is then given the instruction `"1111111"`. 
