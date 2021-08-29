@@ -11,7 +11,7 @@ This code constructs a quantum computer that represents memory data with 4 qubit
 Thus,  `"1111111"` represents the instruction to store 15 in the fourth memory address. When we take a look at the state of the memory register after running our 1-instruction program on our computer, we see that 15 is stored in the fourth memory address as expected.
 
 ```python
->>> from qcpu import QuantumComputer
+>>> from qpu import QuantumComputer
 >>> computer = QuantumComputer(4, 2)
 >>> computer.program("1111111")
 >>> computer.run()
